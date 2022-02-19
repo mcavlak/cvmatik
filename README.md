@@ -6,11 +6,11 @@ Bu projeyi istediğiniz şekilde kullanabilirsiniz.
 
 #### Yüklemek için
 
---npx yarn install
+- npx yarn install
 
 #### Çalıştırmak için
 
---npx yarn start
+- npx yarn start
 
 ### Kullanılan Paket & Frameworkler
 
