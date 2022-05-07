@@ -1,11 +1,16 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Container, Grid, InputAdornment, TextField, Typography, Divider } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, InputAdornment, TextField, Typography, Divider } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from "react";
 import Sablon1 from "./Sablon1";
-import { PDFViewer } from "@react-pdf/renderer";
-import moment from 'moment';
+import { PDFViewer, usePDF } from "@react-pdf/renderer";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+import { tr } from "date-fns/locale"
+import { format } from "date-fns";
 
 function App() {
+
+  const [instance, updateInstance] = usePDF({ document: Sablon1 });
 
   const [expanded, setExpanded] = useState('iletisim');
 
@@ -51,8 +56,8 @@ function App() {
         {
           schoolName: 'Pamukkale Üniversitesi',
           department: 'Yönetim Bilişim Sistemleri',
-          inDate: '2016',
-          outDate: '',
+          inDate: 'Eylül / 2016',
+          outDate: 'Haziran / 2022',
         },
       ],
       experience: [
@@ -243,33 +248,37 @@ function App() {
                       </Grid>
 
                       <Grid item xs={12} md={6}>
-                        <TextField
-                          label="Giriş Tarihi"
-                          variant="standard"
-                          fullWidth
-                          type='date'
-                          size='small'
-                          value={val?.inDate}
-                          onChange={(e) => {
-                            data.education[i].inDate = moment(e.target.value).format('DD/MM/yyyy')
-                            setData({ ...data })
-                          }}
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={tr}>
+                          <DatePicker
+                            inputFormat="MMMM / yyyy"
+                            views={['year', 'month']}
+                            label='Başlangıç Tarihi'
+                            maxDate={new Date()}
+                            value={data?.education[i]?.inDate}
+                            onChange={(newValue) => {
+                              data.education[i].inDate = format(newValue, "MMMM / yyyy", { locale: tr })
+                              setData({ ...data })
+                            }}
+                            renderInput={(params) => <TextField {...params} variant='standard' fullWidth />}
+                          />
+                        </LocalizationProvider>
                       </Grid>
 
                       <Grid item xs={12} md={6}>
-                        <TextField
-                          label="Mezuniyet Tarihi"
-                          variant="standard"
-                          fullWidth
-                          type='date'
-                          size='small'
-                          value={data?.education[i]?.outDate}
-                          onChange={(e) => {
-                            data.education[i].outDate = moment(e.target.value).format('DD/MM/yyyy')
-                            setData({ ...data })
-                          }}
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={tr}>
+                          <DatePicker
+                            inputFormat="MMMM / yyyy"
+                            views={['year', 'month']}
+                            label='Mezuniyet Tarihi'
+                            minDate={new Date()}
+                            value={data?.education[i]?.outDate}
+                            onChange={(newValue) => {
+                              data.education[i].outDate = format(newValue, "MMMM / yyyy", { locale: tr })
+                              setData({ ...data })
+                            }}
+                            renderInput={(params) => <TextField {...params} variant='standard' fullWidth />}
+                          />
+                        </LocalizationProvider>
                       </Grid>
 
                     </Grid>
@@ -689,9 +698,11 @@ function App() {
       </Grid>
       {/* Right Content */}
       <Grid item xs={12} sm={6} md={6}>
+
         <PDFViewer style={{ width: '100%', minHeight: '100vh' }}>
           <Sablon1 data={data} />
         </PDFViewer>
+
       </Grid>
     </Grid >
   )

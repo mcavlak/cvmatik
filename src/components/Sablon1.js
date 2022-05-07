@@ -218,8 +218,9 @@ function Sablon1({ data }) {
                             data?.education.map((val, i) =>
                                 <View key={i} style={{ flexDirection: 'column', marginBottom: '10px', marginLeft: '10px' }}>
                                     <Text style={{ color: colors.dark, fontWeight: 600, fontSize: '12px' }}>{val?.schoolName}</Text>
-                                    <View style={{ flexDirection: 'row', marginLeft: '5px' }}>
-                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.inDate + ' - ' + val?.outDate + ' | ' + val?.department}</Text>
+                                    <View style={{ flexDirection: 'column', marginLeft: '5px' }}>
+                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.inDate + ' - ' + val?.outDate}</Text>
+                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.department}</Text>
                                     </View>
                                 </View>
                             )
@@ -236,7 +237,8 @@ function Sablon1({ data }) {
                                 <View key={i} style={{ flexDirection: 'column', marginBottom: '10px', marginLeft: '10px' }}>
                                     <Text style={{ color: colors.dark, fontWeight: 600, fontSize: '12px' }}>{val?.corporationName}</Text>
                                     <View style={{ flexDirection: 'column', marginLeft: '5px' }}>
-                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.inDate + ' - ' + val?.outDate + ' | ' + val?.job}</Text>
+                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.inDate + ' - ' + val?.outDate}</Text>
+                                        <Text style={{ color: colors.dark, fontSize: '12px' }}>{val?.job}</Text>
                                         <Text style={{ color: colors.dark, fontSize: '12px' }}>" {val?.description} "</Text>
                                     </View>
                                 </View>
