@@ -1,4 +1,4 @@
-## cvMatic - Cv Oluşturma Uygulaması
+## cvmatik - Cv Oluşturma Uygulaması
 
 Bu projeyi istediğiniz şekilde kullanabilirsiniz.
 
